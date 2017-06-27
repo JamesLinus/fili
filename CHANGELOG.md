@@ -10,6 +10,9 @@ Current
 
 ### Added:
 
+- [Add Table-wide Availability](https://github.com/yahoo/fili/pull/414)
+    * Union the availability for the logical table without taking the TablesApiRequest into account.
+
 - [Implement EtagCacheResponseProcessor](https://github.com/yahoo/fili/pull/311)
     * Add `EtagCacheResponseProcessor` that caches the results if appropriate after completing a query according to
     etag value.
