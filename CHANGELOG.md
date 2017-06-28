@@ -10,12 +10,19 @@ Current
 
 ### Added:
 
+- [Implement EtagCacheResponseProcessor](https://github.com/yahoo/fili/pull/311)
+    * Add `EtagCacheResponseProcessor` that caches the results if appropriate after completing a query according to
+    etag value.
+
 - [Add dimension dictionary to metric loader](https://github.com/yahoo/fili/pull/317)
     * Added a two argument version of `loadMetricDictionary` default method in `MetricLoader` interface that allows dimension
     dependent metrics by providing a dimension dictionary given by `ConfigurationLoader`
 
 
 ### Changed:
+
+- [Fix a bug where table loader uses nested compute if absent](https://github.com/yahoo/fili/pull/407)
+    * Nesting `computeIfAbsent` on maps can cause a lot of issues in the map internals that causes weird behavior, nesting structure is now removed
 
 - [Convert null avro record value to empty string](https://github.com/yahoo/fili/pull/395)
     * Make `AvroDimensionRowParser` convert null record value into empty string to avoid NPE
@@ -492,6 +499,10 @@ Removals:
     * When that deprecated class (`LogicalDimensionColumn`) goes away, this constructor will go away as well
 
 ### Fixed:
+
+- [Fix the generic example for loading multiple tables](https://github.com/yahoo/fili/pull/309)
+    * Loading multiple tables caused it to hang and eventually time out.
+    * Also fixed issue causing all tables to show the same set of dimensions.
 
 - [Support for Lucene 5 indexes restored](https://github.com/yahoo/fili/pull/265)
     * Added `lucene-backward-codecs.jar` as a dependency to restore support for indexes built on earlier instances.
