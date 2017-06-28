@@ -11,9 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-/**
- * Created by kevin on 3/7/2017.
- */
 public class StaticWikiConfigLoader implements Supplier<List<? extends DataSourceConfiguration>> {
 
     public static DataSourceConfiguration getWikiDruidConfig() {
