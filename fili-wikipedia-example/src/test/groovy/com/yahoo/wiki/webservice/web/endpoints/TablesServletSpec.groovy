@@ -5,10 +5,13 @@ package com.yahoo.wiki.webservice.web.endpoints
 import static com.yahoo.wiki.webservice.data.config.names.WikiLogicalTableName.WIKIPEDIA
 
 import com.yahoo.bard.webservice.application.JerseyTestBinder
+import com.yahoo.bard.webservice.table.availability.AvailabilityTestingUtils
 import com.yahoo.bard.webservice.util.GroovyTestUtils
 import com.yahoo.bard.webservice.util.JsonSortStrategy
 import com.yahoo.bard.webservice.web.endpoints.TablesServlet
 import com.yahoo.wiki.webservice.application.WikiJerseyTestBinder
+
+import org.joda.time.Interval
 
 import spock.lang.Specification
 import spock.lang.Timeout
@@ -21,6 +24,12 @@ class TablesServletSpec extends Specification {
     def setup() {
         // Create the test web container to test the resources
         jerseyTestBinder = new WikiJerseyTestBinder(TablesServlet.class)
+
+        AvailabilityTestingUtils.populatePhysicalTableCacheIntervals(
+                jerseyTestBinder,
+                new Interval("2018-01-01/2018-02-01"),
+                [WIKIPEDIA.asName()] as Set
+        )
     }
 
     def cleanup() {
@@ -106,7 +115,7 @@ class TablesServletSpec extends Specification {
 
         List<String> metricNames = "count, added, delta, deleted".split(',').collect{ it.trim()}
         String expectedResponse = """{
-                                        "availableIntervals":[],
+                                        "availableIntervals":["2018-01-01T00:00:00.000Z/2018-02-01T00:00:00.000Z"],
                                         "name":"$tableName",
                                         "longName":"$tableName",
                                         "granularity":"hour",
